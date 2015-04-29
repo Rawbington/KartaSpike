@@ -1,25 +1,175 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset=utf-8 />
-<title>A simple map</title>
-<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-<script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.8/mapbox.js'></script>
-<link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.8/mapbox.css' rel='stylesheet' />
-<style>
-  body { margin:0; padding:0; }
-  #map { position:absolute; top:0; bottom:0; width:100%; }
-</style>
-</head>
-<body>
 
-<div id='map'></div>
-<script>
-L.mapbox.accessToken = 'pk.eyJ1IjoicmF3YmluZ3RvbiIsImEiOiJvb1FIUjFRIn0._uBErnnMitNfkMT1vJrChg';
-var map = L.mapbox.map('map', 'rawbington.b607f421')
-    .setView([59.3440, 18.0768], 148);
-</script>
+		<script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.8/mapbox.js'></script>
+		<link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.8/mapbox.css' rel='stylesheet' />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		
+		<style>
+ 			#map {position:absolute; height: 94%; width:94%; margin-top:10px; margin-right:10%; margin-bottom:10px; }
+ 			h1{
+ 			   
+ 			} 
+ 			.buttons{margin-top:10px;
+ 		 	
+ 			 }
+ 			body{
+ 			
+ 			}
+ 			
+		</style>
+<div class="containaner">
 
-</body>
-</html>
+	<button type="button" class="buttons" id="skapanål">Skapa nål</button>
+	<button type="button" class="buttons">Hitta vänner</button>
+	<button type="button" class="buttons">Var är jag?</button>
+	
+	
+	<select id="selectpins">
+  		<option value="event">Event</option>
+  		<option value="tunnelbana">Tunnelbana</option>
+ 	    <option value="paradväg">Paradväg</option>
+	</select>
+	 
+	 <script>
+	 nålKlickad = false;
+	 Boolean(nålKlickad);
+	 
+	 // var nålskapare = document.getElementById("skapanål");
+	 //nålskapare.addEventListener("Klick", skapaNyNål());
+	 
+	 $("#skapanål").click(function(){        
+		nålKlickad = true;  
+		console.log("Satt nål till true")
+		});
+	 
+	 var e = document.getElementById("selectpins");
+	 alert(e);
+	 var strUser = e.options[e.selectedIndex].value;
+	 
+     $(document).ready(function () {
+         $("#selectpins").bind('change', function() {
+             alert(selectpins.value);
+             });
+     });
+	 
+	 	if (document.getElementById("selectpins").value == "event")
+	 		console.log("event vald");
+	 	else if	(document.getElementById("selectpins").value == "tunnelbana")
+	 		console.log("tunnelbana vald");
+	 	/*	
+	 	var map = L.map('map', {
+  			  center: [59.335290681229424, 18.077123165130615],
+   				zoom: 10,
+    			layers: [tunnelbanestationer]
+				}); 
+	 		var overlayMaps = {
+	 			    "Tunnelbanestationer": tunnelbanestationer
+	 			};
+	 		
+	 		L.control.layers(null, overlayMaps).addTo(map);
+	 		*/
+	 			
+	 	else if(document.getElementById("selectpins").value == "paradväg")	
+	 		console.log("paradväg vald");
+	 		
+		
+	</script>
+	<div id='map'></div></div>
+	
+	<script>
+	
+	
+	L.mapbox.accessToken = 'pk.eyJ1IjoibGlubmVpbGVydHNlbiIsImEiOiJjNDNGZzFRIn0.sl0yVvdOA3W29sgDONTFWA';
 
+		var map = L.mapbox.map('map', 'linneilertsen.3e016973')
+		.setView([59.333, 18.069], 13);	//sätter startkoordinater och zoom. 
+	
+	//tunnelbanestationer
+	
+	/*var tunnelbanestationer = L.layerGroup([östermalmstorg, hötorget, tcentralen, kungsträdgården, slussen]);
+	
+	var östermalmstorg = L.marker([59.335290681229424, 18.077123165130615]).bindPopup('This is Östermalmstorg'),
+    hötorget    = L.marker([59.335917202055406, 18.063100576400757]).bindPopup('This is Hötorget'),
+    tcentralen    = L.marker([59.33239595028303, 18.063079118728638]).bindPopup('This is T-centralen'),
+    kungsträdgården    = L.marker([59.33114823971124, 18.072348833084106]).bindPopup('This is Kungsträdgården'),
+	slussen    = L.marker([59.31943503861863, 18.07225227355957]).bindPopup('This is Slussen');
+	*/
+	
+	var marker = L.marker([59.335290681229424, 18.077123165130615]).addTo(map); //Östermalmstorg
+		marker.bindPopup("<b>Östermalmstorg</b><br>.").openPopup();
+	var marker = L.marker([59.335917202055406, 18.063100576400757]).addTo(map); //Hötorget
+		marker.bindPopup("<b>Hötorget</b>").openPopup();
+	var marker = L.marker([59.33239595028303, 18.063079118728638]).addTo(map); //T-centralen
+		marker.bindPopup("<b>T-centralen</b>").openPopup();
+	var marker = L.marker([59.33114823971124, 18.072348833084106]).addTo(map); //Kungsträdården	
+		marker.bindPopup("<b>Kungsträdgården</b>").openPopup();
+	var marker = L.marker([59.31943503861863, 18.07225227355957]).addTo(map); //Slussen	
+		marker.bindPopup("<b>Slussen</b>").openPopup();
+	
+	
+	//Pride area
+	var marker = L.marker([59.331952, 18.064634000000012]).addTo(map); //Pride House
+		marker.bindPopup("<b><strong>Pride House</strong></b></br> <strong>28/7</strong> </br> 11-17: Rum för Barn </br> 12-13: Invigning Pride Ung House </br> 13-14.30: HBTQ-begrepp för nyfikna </br> 15-16.30: Ett uppror: the transgender version </br> 15-15.45: En sexualpolitisk odyssé med fokus på KSK</br> 16-18: Vm i dildokubb</br> 19-22.30: Invigningsfest med JD Samson</br>  " ).openPopup();	
+
+	
+	
+	//Events
+	var marker = L.marker([59.33226735065341, 18.07424247264862]).addTo(map); //Berns	
+		marker.bindPopup("<b>Berns</b><br> 28/7 22-04: Grand GLORY - Pre Pride Party <br> 30/7 21-04. Wild Wednesday GLORY").openPopup();
+	var marker = L.marker([59.331109932082775, 18.06651771068573]).addTo(map); //Brukebergs torg
+		marker.bindPopup("<b>Brunkebergs torg</b> </br> <strong>28/7</strong> </br> 18-21: QueerTangoHång ").openPopup();
+		
+		
+	var popup = L.popup();
+
+	
+	
+	/*var polygon = L.polygon([
+	                         [59.348792518330676, 18.082187175750732],
+	                         [59.34830024417578, 18.0824875831604],
+	                         [51.51, -0.047]
+	                     ]).addTo(map);
+	*/
+
+	//när man klickar på kartan så kommer en popup med koordinaterna man klickat på. 
+	function onMapClick(e) {
+		if(nålKlickad==true){ 
+			var input = prompt('Namn på nål: ', '');
+			var marker = L.marker()
+		        .setLatLng(e.latlng)
+		        .addTo(map);
+				nålKlickad=false;
+				
+		}
+	}
+
+	map.on('click', onMapClick);
+	
+	//smidigt för att zooma in kartvyn. 
+	//Leaflet has a very handy shortcut for zooming the map view to the detected location  
+	//locate method with the setView option, replacing the usual setView method in the code: MAXZOOM:16
+	map.locate( {setView: false, maxZoom: 16});
+
+	//Geolocation
+	
+	function onLocationFound(e) {
+    var radius = e.accuracy / 2;
+
+    L.marker(e.latlng).addTo(map)
+        .bindPopup("You are within " + radius + " meters from this point").openPopup();
+
+    L.circle(e.latlng, radius).addTo(map);
+	}
+
+	map.on('locationfound', onLocationFound);
+	
+	function onLocationError(e) {
+    alert(e.message);
+	}
+
+	map.on('locationerror', onLocationError);
+
+	
+	</script>
+
+
+}
